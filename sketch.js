@@ -16,9 +16,8 @@ function gotResults(error, results){
 		textSize(64);
 		text(label, 10, height - 100);
 		createP(label);
-		console.log(label);
 		createP(prob);
-		console.log(prob);
+		mobilenet.predict(gotResults);
 	}
 }
 
