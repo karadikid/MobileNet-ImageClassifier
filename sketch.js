@@ -1,4 +1,6 @@
 let video;
+let label = '';
+let prob = '';
 
 function modelReady(){
 	console.log('Model is ready!!!');
@@ -9,15 +11,11 @@ function gotResults(error, results){
 	if(error) {
 		console.error(error);
 	} else {
-		console.log(results);
-		let label = results[0].label;
-		let prob = results[0].confidence;
-		fill(0);
-		textSize(64);
-		text(label, 10, height - 100);
-		createP(label);
-		createP(prob);
-		mobilenet.predict(gotResults);
+	//	console.log(results);
+		label = results[0].label;
+		prob = results[0].confidence;
+		background(0);
+		setTimeout(() => {  mobilenet.predict(gotResults); }, 1000);
 	}
 }
 
@@ -26,7 +24,7 @@ function gotResults(error, results){
 // }
 
 function setup() {
-	createCanvas(640, 480);
+	createCanvas(640, 550);
 	video = createCapture(VIDEO)
 	video.hide();
 	background(0);
@@ -35,4 +33,7 @@ function setup() {
 
 function draw() {
 	image(video, 0, 0);
+	fill(255);
+	textSize(32);
+	text(label, 10, height - 20);
 }
