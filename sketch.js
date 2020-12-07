@@ -1,8 +1,8 @@
-let puffin;
+let video;
 
 function modelReady(){
 	console.log('Model is ready!!!');
-	mobilenet.predict(puffin, gotResults);
+	mobilenet.predict(gotResults);
 }
 
 function gotResults(error, results){
@@ -16,22 +16,24 @@ function gotResults(error, results){
 		textSize(64);
 		text(label, 10, height - 100);
 		createP(label);
+		console.log(label);
 		createP(prob);
+		console.log(prob);
 	}
 }
 
-function imageReady() {
-	image(puffin, 0, 0, width, height)
-}
+// function imageReady() {
+// 	image(puffin, 0, 0, width, height)
+// }
 
 function setup() {
-	createCanvas(windowWidth, windowHeight);
-	puffin = createImg('./images/Atlantic-Puffin.jpg', imageReady)
-	puffin.hide();
+	createCanvas(640, 480);
+	video = createCapture(VIDEO)
+	video.hide();
 	background(0);
-	mobilenet = ml5.imageClassifier('MobileNet', modelReady);
+	mobilenet = ml5.imageClassifier('MobileNet', video, modelReady);
 }
 
 function draw() {
-	
+	image(video, 0, 0);
 }
